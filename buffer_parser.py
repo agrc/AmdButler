@@ -1,14 +1,22 @@
 import re
 from itertools import zip_longest
 
-reRegions = re.compile(r'^(define|require)\s*\(\s*\[(?P<imports>[\S\s]+?)\]\s*,'
-                       r'\s*function\s*\((?P<params>[\S\s]+?)\)')
+reg = re.compile(r'^(define|require)\s*\(\s*\[(?P<imports>[\S\s]+?)\]\s*,'
+                 r'\s*function\s*\((?P<params>[\S\s]+?)\)')
 
 
-def get_regions(txt):
-    m = reRegions.match(txt)
+def get_region(txt, param):
+    m = reg.match(txt)
     if m:
-        return (m.span('imports'), m.span('params'))
+        return m.span(param)
+
+
+def get_imports_region(txt):
+    return get_region(txt, 'imports')
+
+
+def get_params_region(txt):
+    return get_region(txt, 'params')
 
 
 def zip(imports_slice, params_slice, txt):

@@ -24,7 +24,7 @@ class parserTests(unittest.TestCase):
         ['dojo/domReady!', None]
     ]
 
-    def test_get_regions(self):
+    def test_get_imports_region(self):
         expected_imp = """
     'dojo/_base/declare',
     'dijit/_WidgetBase',
@@ -43,6 +43,10 @@ class parserTests(unittest.TestCase):
 
     'dijit/form/ValidationTextBox'
 """
+        impReg = buffer_parser.get_imports_region(self.txt)
+        self.assertEqual(self.txt[impReg[0]: impReg[1]], expected_imp)
+
+    def test_get_params_region(self):
         expected_param = """
     declare,
     _WidgetBase,
@@ -59,11 +63,10 @@ class parserTests(unittest.TestCase):
     on,
     has
     """
-        impReg, paramReg = buffer_parser.get_regions(self.txt)
-        self.assertEqual(self.txt[impReg[0]: impReg[1]], expected_imp)
+        paramReg = buffer_parser.get_params_region(self.txt)
         self.assertEqual(self.txt[paramReg[0]: paramReg[1]], expected_param)
 
-    def test_get_regions_require(self):
+    def test_get_imports_region_require(self):
         expected_imp = """
     'app/Router',
 
@@ -73,6 +76,10 @@ class parserTests(unittest.TestCase):
 
     'esri/geometry/Extent'
 """
+        impReg = buffer_parser.get_imports_region(self.txt2)
+        self.assertEqual(self.txt2[impReg[0]: impReg[1]], expected_imp)
+
+    def test_get_params_region_require(self):
         expected_param = """
     Router,
 
@@ -82,8 +89,7 @@ class parserTests(unittest.TestCase):
 
     Extent
     """
-        impReg, paramReg = buffer_parser.get_regions(self.txt2)
-        self.assertEqual(self.txt2[impReg[0]: impReg[1]], expected_imp)
+        paramReg = buffer_parser.get_params_region(self.txt2)
         self.assertEqual(self.txt2[paramReg[0]: paramReg[1]], expected_param)
 
     def test_zip(self):
