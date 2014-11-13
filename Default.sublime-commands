@@ -1,0 +1,6 @@
+[
+    {
+        "caption": "AMD Import Helper: Sort AMD Imports",
+        "command": "amd_import_helper_sort"
+    }
+]
