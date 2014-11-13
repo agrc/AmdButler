@@ -4,6 +4,7 @@ import buffer_parser
 
 class parserTests(unittest.TestCase):
     txt = open('tests/data/Module.js', 'r').read()
+    txt2 = open('tests/data/Module2.js', 'r').read()
     pairs = [
         ['dijit/_TemplatedMixin', '_TemplatedMixin'],
         ['dijit/_WidgetBase', '_WidgetBase'],
@@ -61,6 +62,29 @@ class parserTests(unittest.TestCase):
         impReg, paramReg = buffer_parser.get_regions(self.txt)
         self.assertEqual(self.txt[impReg[0]: impReg[1]], expected_imp)
         self.assertEqual(self.txt[paramReg[0]: paramReg[1]], expected_param)
+
+    def test_get_regions_require(self):
+        expected_imp = """
+    'app/Router',
+
+    'dojo/topic',
+    'dojo/router',
+    'dojo/_base/lang',
+
+    'esri/geometry/Extent'
+"""
+        expected_param = """
+    Router,
+
+    topic,
+    dojoRouter,
+    lang,
+
+    Extent
+    """
+        impReg, paramReg = buffer_parser.get_regions(self.txt2)
+        self.assertEqual(self.txt2[impReg[0]: impReg[1]], expected_imp)
+        self.assertEqual(self.txt2[paramReg[0]: paramReg[1]], expected_param)
 
     def test_zip(self):
         pairs = buffer_parser.zip((8, 389), (403, 599), self.txt)

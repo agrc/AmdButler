@@ -1,7 +1,7 @@
 import re
 from itertools import zip_longest
 
-reRegions = re.compile(r'^define\s*\(\s*\[(?P<imports>[\S\s]+?)\]\s*,'
+reRegions = re.compile(r'^(define|require)\s*\(\s*\[(?P<imports>[\S\s]+?)\]\s*,'
                        r'\s*function\s*\((?P<params>[\S\s]+?)\)')
 
 
@@ -22,13 +22,11 @@ def zip(imports_slice, params_slice, txt):
 
     # sort by imports
     l.sort(key=lambda x: x[0])
-    print(l)
 
     # move imports with no parameter to bottom of the list
     noParams = []
     for i, pair in enumerate(l):
         if pair[1] is None:
-            print(pair)
             noParams.append(i)
 
     for i in noParams:
