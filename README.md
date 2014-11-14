@@ -1,3 +1,4 @@
+[![Build Status](https://travis-ci.org/agrc/amd-import-helper.svg)](https://travis-ci.org/agrc/amd-import-helper)
 amd-import-helper
 =================
 
