@@ -39,8 +39,6 @@ def zip(imports_slice, params_slice, txt):
 
     for remove in noParams:
         l.remove(remove)
-    print('noParams')
-    print(noParams)
 
     return l + noParams
 

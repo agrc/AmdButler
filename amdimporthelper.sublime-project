@@ -21,5 +21,9 @@
 			"follow_symlinks": true,
 			"path": "/Users/stdavis/Library/Application Support/Sublime Text 3/Packages/Anaconda"
 		}
-	]
+	],
+	"settings":
+	{
+		"amd_packages_base_path": "/Users/stdavis/Documents/Projects/AmdImportHelper/tests/data/crawlTest"
+	}
 }
