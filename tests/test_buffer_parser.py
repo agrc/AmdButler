@@ -5,6 +5,7 @@ import buffer_parser
 class parserTests(unittest.TestCase):
     txt = open('tests/data/Module.js', 'r').read()
     txt2 = open('tests/data/Module2.js', 'r').read()
+    txt3 = open('tests/data/Module3.js', 'r').read()
     pairs = [
         ['dijit/_TemplatedMixin', '_TemplatedMixin'],
         ['dijit/_WidgetBase', '_WidgetBase'],
@@ -99,6 +100,15 @@ class parserTests(unittest.TestCase):
         self.assertEqual(pairs[0], ('dijit/_TemplatedMixin',
                                     '_TemplatedMixin'))
         self.assertEqual(pairs[-1], ('dijit/form/ValidationTextBox', None))
+
+    def test_zip_another(self):
+        pairs = buffer_parser.zip((8, 511), (525, 783), self.txt3)
+        for p in pairs:
+            print(p)
+
+        self.assertEqual(len(pairs), 19)
+        self.assertEqual(pairs[-2], ('agrc/widgets/locate/FindAddress', None))
+        self.assertEqual(pairs[-1], ('dojo/_base/sniff', None))
 
     def test_get_imports_txt(self):
         expected = """

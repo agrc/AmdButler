@@ -2,3 +2,6 @@ language: python
 python:
  - "3.3"
 script: nosetests
+notifications:
+    email:
+        on_success: never

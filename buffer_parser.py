@@ -33,14 +33,14 @@ def zip(imports_slice, params_slice, txt):
 
     # move imports with no parameter to bottom of the list
     noParams = []
-    for i, pair in enumerate(l):
+    for pair in l:
         if pair[1] is None:
-            noParams.append(i)
+            noParams.append(pair)
 
-    for i in noParams:
-        l.append(l.pop(i))
+    for remove in noParams:
+        l.remove(remove)
 
-    return l
+    return l + noParams
 
 
 def get_imports_txt(pairs, indent):
