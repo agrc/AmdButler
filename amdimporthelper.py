@@ -3,7 +3,6 @@ import sublime_plugin
 import os
 from . import buffer_parser
 from . import crawler
-from . import alias_parser
 
 PATH_SETTING_NAME = 'amd_packages_base_path'
 SETTINGS_FILE_NAME = 'AmdImportHelper.sublime-settings'
