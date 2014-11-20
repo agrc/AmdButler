@@ -7,23 +7,35 @@ PATH_SETTING_NAME = 'amd_packages_base_path'
 SETTINGS_FILE_NAME = 'AmdImportHelper.sublime-settings'
 
 
+def _get_sorted_pairs(view):
+    all_txt = view.substr(sublime.Region(0, view.size()))
+
+    return buffer_parser.zip(*_get_regions(all_txt), txt=all_txt)
+
+
+def _get_regions(all_txt):
+    imports = buffer_parser.get_imports_region(all_txt)
+    params = buffer_parser.get_params_region(all_txt)
+
+    return (imports, params)
+
+
+def _update_with_pairs(view, edit, pairs):
+    imports, params = _get_regions(view.substr(sublime.Region(0, view.size())))
+
+    # replace params - do these first since they won't affect the
+    # imports region
+    params_txt = buffer_parser.get_params_txt(pairs, '\t')
+    view.replace(edit, sublime.Region(*params), params_txt)
+
+    # replace imports
+    import_txt = buffer_parser.get_imports_txt(pairs, '\t')
+    view.replace(edit, sublime.Region(*imports), import_txt)
+
+
 class AmdImportHelperSort(sublime_plugin.TextCommand):
     def run(self, edit):
-        all_txt = self.view.substr(sublime.Region(0, self.view.size()))
-
-        # get sorted pairs
-        imports = buffer_parser.get_imports_region(all_txt)
-        params = buffer_parser.get_params_region(all_txt)
-        pairs = buffer_parser.zip(imports, params, all_txt)
-
-        # replace params - do these first since they won't affect the
-        # imports region
-        params_txt = buffer_parser.get_params_txt(pairs, '\t')
-        self.view.replace(edit, sublime.Region(*params), params_txt)
-
-        # replace imports
-        import_txt = buffer_parser.get_imports_txt(pairs, '\t')
-        self.view.replace(edit, sublime.Region(*imports), import_txt)
+        _update_with_pairs(self.view, edit, _get_sorted_pairs(self.view))
 
 
 class AmdImportHelperAdd(sublime_plugin.TextCommand):
@@ -54,11 +66,10 @@ class AmdImportHelperAdd(sublime_plugin.TextCommand):
             self.on_change, self.on_cancel)
 
     def on_mod_selected(self, i):
-        if i == -1:
-            # quick panel was canceled
-            return
-        pair = self.mods[i]
-        self.view.run_command('amd_import_helper_internal_add', {'pair': pair})
+        if i != -1:
+            pair = self.mods[i]
+            self.view.run_command('amd_import_helper_internal_add',
+                                  {'pair': pair})
 
     def on_folder_defined(self, txt):
         # TODO validate folder
@@ -98,6 +109,29 @@ class AmdImportHelperAdd(sublime_plugin.TextCommand):
 
     def on_cancel(self):
         pass
+
+
+class AmdImportHelperRemove(sublime_plugin.TextCommand):
+    def run(self, edit):
+        self.pairs = _get_sorted_pairs(self.view)
+
+        # scrub for None values
+        for p in self.pairs:
+            if p[1] is None:
+                p[1] = ''
+        self.view.window().show_quick_panel(
+            self.pairs, self.on_mod_selected)
+
+    def on_mod_selected(self, i):
+        if i != -1:
+            self.pairs.pop(i)
+            self.view.run_command('amd_import_helper_internal_update',
+                                  {'pairs': self.pairs})
+
+
+class AmdImportHelperInternalUpdate(sublime_plugin.TextCommand):
+    def run(self, edit, pairs):
+        _update_with_pairs(self.view, edit, pairs)
 
 
 class AmdImportHelperInternalAdd(sublime_plugin.TextCommand):

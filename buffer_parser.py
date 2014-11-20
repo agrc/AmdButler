@@ -40,7 +40,8 @@ def zip(imports_slice, params_slice, txt):
     for remove in noParams:
         l.remove(remove)
 
-    return l + noParams
+    noParams = l + noParams
+    return [list(x) for x in noParams]
 
 
 def get_imports_txt(pairs, indent):

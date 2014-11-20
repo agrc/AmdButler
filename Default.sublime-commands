@@ -5,5 +5,8 @@
     },{
         "caption": "AMD Import Helper: Add AMD Import",
         "command": "amd_import_helper_add"
+    },{
+        "caption": "AMD Import Helper: Remove AMD Import",
+        "command": "amd_import_helper_remove"
     }
 ]

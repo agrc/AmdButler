@@ -97,9 +97,9 @@ class parserTests(unittest.TestCase):
         pairs = buffer_parser.zip((8, 389), (403, 599), self.txt)
 
         self.assertEqual(len(pairs), 15)
-        self.assertEqual(pairs[0], ('dijit/_TemplatedMixin',
-                                    '_TemplatedMixin'))
-        self.assertEqual(pairs[-1], ('dijit/form/ValidationTextBox', None))
+        self.assertEqual(pairs[0], ['dijit/_TemplatedMixin',
+                                    '_TemplatedMixin'])
+        self.assertEqual(pairs[-1], ['dijit/form/ValidationTextBox', None])
 
     def test_zip_another(self):
         pairs = buffer_parser.zip((8, 511), (525, 783), self.txt3)
@@ -107,8 +107,8 @@ class parserTests(unittest.TestCase):
             print(p)
 
         self.assertEqual(len(pairs), 19)
-        self.assertEqual(pairs[-2], ('agrc/widgets/locate/FindAddress', None))
-        self.assertEqual(pairs[-1], ('dojo/_base/sniff', None))
+        self.assertEqual(pairs[-2], ['agrc/widgets/locate/FindAddress', None])
+        self.assertEqual(pairs[-1], ['dojo/_base/sniff', None])
 
     def test_get_imports_txt(self):
         expected = """
