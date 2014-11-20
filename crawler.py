@@ -2,8 +2,7 @@ import os
 import re
 
 RESERVED_WORDS = ['string', 'window']
-sep = re.escape(os.sep)
-skip = re.compile('{0}(nls|tests)($|{0})'.format(sep))
+skip = re.compile('{0}(nls|tests)($|{0})'.format('/'))
 
 
 def crawl(path):
@@ -14,8 +13,11 @@ def crawl(path):
                 if f.endswith('.js'):
                     name = f[:-3]
                     paramName = get_param_name(name, package)
-                    base = root.replace(path + '/', '')
-                    mod = '{}/{}'.format(base, name)
+                    base = root.replace(path + os.sep, '')
+
+                    # replace '\\' for '/' in windows
+                    base = base.replace(os.sep, '/')
+                    mod = r'{}/{}'.format(base, name)
                     if skip.search(mod) is None:
                         mods.append([mod, paramName])
     return mods

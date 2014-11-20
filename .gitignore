@@ -1,3 +1,4 @@
+*.idea
 *.pyc
 *.sublime-workspace
 *__pycache__

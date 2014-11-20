@@ -1,6 +1,5 @@
 import sublime
 import sublime_plugin
-import os
 from . import buffer_parser
 from . import crawler
 
