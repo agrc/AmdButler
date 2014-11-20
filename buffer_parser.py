@@ -23,9 +23,11 @@ def zip(imports_slice, params_slice, txt):
     imports_txt = txt[imports_slice[0]: imports_slice[1]]
     params_txt = txt[params_slice[0]: params_slice[1]]
 
-    imports = re.findall(r'[\'"](.+)[\'"]', imports_txt)
-    params = re.findall(r'(\w+)[,\s]', params_txt)
+    imports = re.findall(r'[\'"](.+?)[\'"]', imports_txt)
+    params = re.findall(r'(\w+?)[,\s]', params_txt)
 
+    print(imports)
+    print(params)
     l = list(zip_longest(imports, params))
 
     # sort by imports

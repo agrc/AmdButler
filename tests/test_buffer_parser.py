@@ -6,6 +6,8 @@ class parserTests(unittest.TestCase):
     txt = open('tests/data/Module.js', 'r').read()
     txt2 = open('tests/data/Module2.js', 'r').read()
     txt3 = open('tests/data/Module3.js', 'r').read()
+    txtSlource = open('tests/data/SlourceModule.js', 'r').read()
+    maxDiff = None
     pairs = [
         ['dijit/_TemplatedMixin', '_TemplatedMixin'],
         ['dijit/_WidgetBase', '_WidgetBase'],
@@ -46,6 +48,30 @@ class parserTests(unittest.TestCase):
 """
         impReg = buffer_parser.get_imports_region(self.txt)
         self.assertEqual(self.txt[impReg[0]: impReg[1]], expected_imp)
+
+    def test_get_import_region_slource(self):
+        expected_imp = (
+            '"dojo/_base/declare", "dojo/_base/lang", '
+            '"dojo/_base/array", "dojo/_base/json", '
+            '"dojo/_base/Deferred", '
+            '"dojo/has", "../kernel", "../lang", '
+            '"../layerUtils", "../deferredUtils", "./Task", '
+            '"../geometry/Polygon", '
+            '"../renderers/SimpleRenderer", "../geometry/scaleUtils", '
+            '"./Geoprocessor", '
+            '"./PrintTemplate", "dojo/dom-construct", "dojox/gfx/_base", '
+            '"dojox/gfx/canvas", "dojox/json/query", "require", "require"')
+
+        impReg = buffer_parser.get_imports_region(self.txtSlource)
+        self.assertEqual(self.txtSlource[impReg[0]: impReg[1]], expected_imp)
+
+    def test_get_params_region_slource(self):
+        expected_param = (
+            'x, h, n, s, y, z, J, t, u, A, B, C, D, E, F, G, H, v, w, I')
+
+        paramReg = buffer_parser.get_params_region(self.txtSlource)
+        self.assertEqual(self.txtSlource[paramReg[0]: paramReg[1]],
+                         expected_param)
 
     def test_get_params_region(self):
         expected_param = """
@@ -110,6 +136,15 @@ class parserTests(unittest.TestCase):
         self.assertEqual(pairs[-2], ['agrc/widgets/locate/FindAddress', None])
         self.assertEqual(pairs[-1], ['dojo/_base/sniff', None])
 
+    def test_zip_slource(self):
+        pairs = buffer_parser.zip((8, 412), (424, 482), self.txtSlource)
+        for p in pairs:
+            print(p)
+
+        self.assertEqual(len(pairs), 22)
+        self.assertEqual(pairs[0], ['../deferredUtils', 'A'])
+        self.assertEqual(pairs[-1], ['require', None])
+
     def test_get_imports_txt(self):
         expected = """
     'dijit/_TemplatedMixin',
@@ -131,7 +166,6 @@ class parserTests(unittest.TestCase):
     'dijit/form/ValidationTextBox',
     'dojo/domReady!'
 """
-        self.maxDiff = None
         self.assertEqual(
             buffer_parser.get_imports_txt(self.pairs, '    '), expected)
 
@@ -154,6 +188,5 @@ class parserTests(unittest.TestCase):
     template
 """
 
-        self.maxDiff = None
         self.assertEqual(
             buffer_parser.get_params_txt(self.pairs, '    '), expected)
