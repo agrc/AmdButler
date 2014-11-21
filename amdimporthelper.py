@@ -33,12 +33,17 @@ def _update_with_pairs(view, edit, pairs):
     view.replace(edit, sublime.Region(*imports), import_txt)
 
 
-class AmdImportHelperSort(sublime_plugin.TextCommand):
+class _Enabled(object):
+    def is_enabled(self):
+        return self.view.settings().get('syntax').find('JavaScript') != -1
+
+
+class AmdImportHelperSort(_Enabled, sublime_plugin.TextCommand):
     def run(self, edit):
         _update_with_pairs(self.view, edit, _get_sorted_pairs(self.view))
 
 
-class AmdImportHelperAdd(sublime_plugin.TextCommand):
+class AmdImportHelperAdd(_Enabled, sublime_plugin.TextCommand):
     mods = None
 
     def run(self, edit):
@@ -111,7 +116,7 @@ class AmdImportHelperAdd(sublime_plugin.TextCommand):
         pass
 
 
-class AmdImportHelperRemove(sublime_plugin.TextCommand):
+class AmdImportHelperRemove(_Enabled, sublime_plugin.TextCommand):
     def run(self, edit):
         self.pairs = _get_sorted_pairs(self.view)
 
@@ -129,12 +134,12 @@ class AmdImportHelperRemove(sublime_plugin.TextCommand):
                                   {'pairs': self.pairs})
 
 
-class AmdImportHelperInternalUpdate(sublime_plugin.TextCommand):
+class AmdImportHelperInternalUpdate(_Enabled, sublime_plugin.TextCommand):
     def run(self, edit, pairs):
         _update_with_pairs(self.view, edit, pairs)
 
 
-class AmdImportHelperInternalAdd(sublime_plugin.TextCommand):
+class AmdImportHelperInternalAdd(_Enabled, sublime_plugin.TextCommand):
     def run(self, edit, pair=''):
         all_txt = self.view.substr(sublime.Region(0, self.view.size()))
 
