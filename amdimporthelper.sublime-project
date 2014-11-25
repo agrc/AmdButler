@@ -24,6 +24,6 @@
 	],
 	"settings":
 	{
-		"amd_packages_base_path": "/Users/stdavis/Documents/Projects/AmdImportHelper/tests/data/crawlTest"
+		"amd_packages_base_path": "crawlTest"
 	}
 }

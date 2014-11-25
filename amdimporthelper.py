@@ -1,5 +1,6 @@
 import sublime
 import sublime_plugin
+import os
 from . import buffer_parser
 from . import crawler
 
@@ -66,7 +67,7 @@ class AmdImportHelperAdd(_Enabled, sublime_plugin.TextCommand):
 
     def _get_path_from_user(self):
         sublime.active_window().show_input_panel(
-            'Path to folder containing AMD modules',
+            'name of folder containing AMD packages (e.g. "src")',
             '', self.on_folder_defined,
             self.on_change, self.on_cancel)
 
@@ -77,12 +78,12 @@ class AmdImportHelperAdd(_Enabled, sublime_plugin.TextCommand):
                                   {'pair': pair})
 
     def on_folder_defined(self, txt):
-        # TODO validate folder
         project = self._get_project_data()
         if project is None:
             # no project open use default setting
             settings = sublime.load_settings(SETTINGS_FILE_NAME)
             settings.set(PATH_SETTING_NAME, txt)
+            sublime.save_settings(SETTINGS_FILE_NAME)
         else:
             project['settings'].update({PATH_SETTING_NAME: txt})
             self._save_project_data(project)
@@ -91,10 +92,22 @@ class AmdImportHelperAdd(_Enabled, sublime_plugin.TextCommand):
     def get_mods(self):
         project = self._get_project_data()
         if project is None:
-            path = sublime.load_settings(SETTINGS_FILE_NAME).get(
+            settings = sublime.load_settings(SETTINGS_FILE_NAME)
+            folder_name = settings.get(
                 PATH_SETTING_NAME)
+            path = self._validate_folder(folder_name)
+            if path is None:
+                settings.erase(PATH_SETTING_NAME)
+                sublime.save_settings(SETTINGS_FILE_NAME)
+                return
         else:
-            path = project['settings'][PATH_SETTING_NAME]
+            settings = project['settings']
+            folder_name = settings[PATH_SETTING_NAME]
+            path = self._validate_folder(folder_name)
+            if path is None:
+                del settings[PATH_SETTING_NAME]
+                self._save_project_data(project)
+
         sublime.status_message(
             'AMD Import Helper: Processing modules in {} ...'.format(path))
         self.mods = crawler.crawl(path)
@@ -102,6 +115,15 @@ class AmdImportHelperAdd(_Enabled, sublime_plugin.TextCommand):
         sublime.status_message(
             'Processing complete. {} total modules processed.'.format(
                 len(self.mods)))
+
+    def _validate_folder(self, folder_name):
+        path = os.path.join(self.view.file_name().split(folder_name)[0],
+                            folder_name)
+        if os.path.exists(path):
+            return path
+        else:
+            sublime.error_message('Could not find: {}!'.format(path))
+            return None
 
     def _get_project_data(self):
         return sublime.active_window().project_data()
