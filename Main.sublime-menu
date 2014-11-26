@@ -12,21 +12,21 @@
                 "children":
                 [
                     {
-                        "caption": "AmdImportHelper",
+                        "caption": "AmdButler",
                         "children":
                         [
                             {
                                 "caption": "Settings - Default",
                                 "command": "open_file", "args":
                                 {
-                                    "file": "${packages}/AmdImportHelper/AmdImportHelper.sublime-settings"
+                                    "file": "${packages}/AmdButler/AmdButler.sublime-settings"
                                 }
                             },
                             {
                                 "caption": "Settings - User",
                                 "command": "open_file", "args":
                                 {
-                                    "file": "${packages}/User/AmdImportHelper.sublime-settings"
+                                    "file": "${packages}/User/AmdButler.sublime-settings"
                                 }
                             }
                         ]

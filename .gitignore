@@ -3,3 +3,4 @@
 *.sublime-workspace
 *__pycache__
 *settings.py*
+.DS_Store

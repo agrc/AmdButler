@@ -1,12 +1,12 @@
 [
     {
-        "caption": "AMD Import Helper: Sort AMD Imports",
-        "command": "amd_import_helper_sort"
+        "caption": "AMD Butler: Sort AMD Imports",
+        "command": "amd_butler_sort"
     },{
-        "caption": "AMD Import Helper: Add AMD Import",
-        "command": "amd_import_helper_add"
+        "caption": "AMD Butler: Add AMD Import",
+        "command": "amd_butler_add"
     },{
-        "caption": "AMD Import Helper: Remove AMD Import",
-        "command": "amd_import_helper_remove"
+        "caption": "AMD Butler: Remove AMD Import",
+        "command": "amd_butler_remove"
     }
 ]

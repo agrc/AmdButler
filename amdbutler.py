@@ -4,8 +4,8 @@ import os
 from . import buffer_parser
 from . import crawler
 
-PATH_SETTING_NAME = 'amd_packages_base_path'
-SETTINGS_FILE_NAME = 'AmdImportHelper.sublime-settings'
+PATH_SETTING_NAME = 'amd_butler_packages_base_path'
+SETTINGS_FILE_NAME = 'AmdButler.sublime-settings'
 
 
 def _get_sorted_pairs(view):
@@ -42,12 +42,12 @@ class _Enabled(object):
         return self.view.settings().get('syntax').find('JavaScript') != -1
 
 
-class AmdImportHelperSort(_Enabled, sublime_plugin.TextCommand):
+class AmdButlerSort(_Enabled, sublime_plugin.TextCommand):
     def run(self, edit):
         _update_with_pairs(self.view, edit, _get_sorted_pairs(self.view))
 
 
-class AmdImportHelperAdd(_Enabled, sublime_plugin.TextCommand):
+class AmdButlerAdd(_Enabled, sublime_plugin.TextCommand):
     mods = None
 
     def run(self, edit):
@@ -77,7 +77,7 @@ class AmdImportHelperAdd(_Enabled, sublime_plugin.TextCommand):
     def on_mod_selected(self, i):
         if i != -1:
             pair = self.mods[i]
-            self.view.run_command('amd_import_helper_internal_add',
+            self.view.run_command('amd_butler_internal_add',
                                   {'pair': pair})
 
     def on_folder_defined(self, txt):
@@ -112,9 +112,9 @@ class AmdImportHelperAdd(_Enabled, sublime_plugin.TextCommand):
                 self._save_project_data(project)
 
         sublime.status_message(
-            'AMD Import Helper: Processing modules in {} ...'.format(path))
+            'AMD Butler: Processing modules in {} ...'.format(path))
         self.mods = crawler.crawl(path)
-        self.view.run_command('amd_import_helper_add')
+        self.view.run_command('amd_butler_add')
         sublime.status_message(
             'Processing complete. {} total modules processed.'.format(
                 len(self.mods)))
@@ -141,7 +141,7 @@ class AmdImportHelperAdd(_Enabled, sublime_plugin.TextCommand):
         pass
 
 
-class AmdImportHelperRemove(_Enabled, sublime_plugin.TextCommand):
+class AmdButlerRemove(_Enabled, sublime_plugin.TextCommand):
     def run(self, edit):
         self.pairs = _get_sorted_pairs(self.view)
 
@@ -155,16 +155,16 @@ class AmdImportHelperRemove(_Enabled, sublime_plugin.TextCommand):
     def on_mod_selected(self, i):
         if i != -1:
             self.pairs.pop(i)
-            self.view.run_command('amd_import_helper_internal_update',
+            self.view.run_command('amd_butler_internal_update',
                                   {'pairs': self.pairs})
 
 
-class AmdImportHelperInternalUpdate(_Enabled, sublime_plugin.TextCommand):
+class AmdButlerInternalUpdate(_Enabled, sublime_plugin.TextCommand):
     def run(self, edit, pairs):
         _update_with_pairs(self.view, edit, pairs)
 
 
-class AmdImportHelperInternalAdd(_Enabled, sublime_plugin.TextCommand):
+class AmdButlerInternalAdd(_Enabled, sublime_plugin.TextCommand):
     def run(self, edit, pair=''):
         all_txt = self.view.substr(sublime.Region(0, self.view.size()))
 
@@ -178,4 +178,4 @@ class AmdImportHelperInternalAdd(_Enabled, sublime_plugin.TextCommand):
         except buffer_parser.ParseError as er:
             sublime.error_message(er.message)
 
-        self.view.run_command('amd_import_helper_sort')
+        self.view.run_command('amd_butler_sort')
