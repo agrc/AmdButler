@@ -5,10 +5,19 @@ reg = re.compile(r'^(define|require)\s*\(\s*\[(?P<imports>[\S\s]+?)\]\s*,'
                  r'\s*function\s*\((?P<params>[\S\s]+?)\)')
 
 
+class ParseError(Exception):
+    message = ('An error occurred parsing this file. Perhaps it\'s a bug? '
+               'If so, please report it at '
+               'https://github.com/agrc/AmdButler/issues')
+    pass
+
+
 def get_region(txt, param):
     m = reg.match(txt)
     if m:
         return m.span(param)
+    else:
+        raise ParseError()
 
 
 def get_imports_region(txt):

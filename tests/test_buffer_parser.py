@@ -190,3 +190,7 @@ class parserTests(unittest.TestCase):
 
         self.assertEqual(
             buffer_parser.get_params_txt(self.pairs, '    '), expected)
+
+    def test_raise_error(self):
+        with self.assertRaises(buffer_parser.ParseError):
+            buffer_parser.get_region('blah', 'imports')

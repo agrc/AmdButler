@@ -11,7 +11,10 @@ SETTINGS_FILE_NAME = 'AmdImportHelper.sublime-settings'
 def _get_sorted_pairs(view):
     all_txt = view.substr(sublime.Region(0, view.size()))
 
-    return buffer_parser.zip(*_get_regions(all_txt), txt=all_txt)
+    try:
+        return buffer_parser.zip(*_get_regions(all_txt), txt=all_txt)
+    except buffer_parser.ParseError as er:
+        sublime.error_message(er.message)
 
 
 def _get_regions(all_txt):
@@ -166,10 +169,13 @@ class AmdImportHelperInternalAdd(_Enabled, sublime_plugin.TextCommand):
         all_txt = self.view.substr(sublime.Region(0, self.view.size()))
 
         # add param first
-        paramsPnt = buffer_parser.get_params_region(all_txt)[0]
-        self.view.insert(edit, paramsPnt, pair[1] + ',')
+        try:
+            paramsPnt = buffer_parser.get_params_region(all_txt)[0]
+            self.view.insert(edit, paramsPnt, pair[1] + ',')
 
-        importsPnt = buffer_parser.get_imports_region(all_txt)[0]
-        self.view.insert(edit, importsPnt, '\'{}\','.format(pair[0]))
+            importsPnt = buffer_parser.get_imports_region(all_txt)[0]
+            self.view.insert(edit, importsPnt, '\'{}\','.format(pair[0]))
+        except buffer_parser.ParseError as er:
+            sublime.error_message(er.message)
 
         self.view.run_command('amd_import_helper_sort')
