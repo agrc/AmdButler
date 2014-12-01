@@ -33,12 +33,13 @@ def zip(imports_slice, params_slice, txt):
     params_txt = txt[params_slice[0]: params_slice[1]]
 
     imports = re.findall(r'[\'"](.+?)[\'"]', imports_txt)
-    params = re.findall(r'(\w+?)[,\s]', params_txt)
+    params = [x[0] for x in re.findall(r'(\w+?)([,\s]|$)', params_txt)]
 
     l = list(zip_longest(imports, params))
 
     # sort by imports
-    l.sort(key=lambda x: x[0])
+    print(l)
+    l.sort(key=lambda x: x[0].lower())
 
     # move imports with no parameter to bottom of the list
     noParams = []

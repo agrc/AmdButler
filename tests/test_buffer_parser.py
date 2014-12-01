@@ -6,6 +6,7 @@ class parserTests(unittest.TestCase):
     txt = open('tests/data/Module.js', 'r').read()
     txt2 = open('tests/data/Module2.js', 'r').read()
     txt3 = open('tests/data/Module3.js', 'r').read()
+    txt4 = open('tests/data/Module4.js', 'r').read()
     txtSlource = open('tests/data/SlourceModule.js', 'r').read()
     maxDiff = None
     pairs = [
@@ -144,6 +145,17 @@ class parserTests(unittest.TestCase):
         self.assertEqual(len(pairs), 22)
         self.assertEqual(pairs[0], ['../deferredUtils', 'A'])
         self.assertEqual(pairs[-1], ['require', None])
+
+    def test_zip_caseinsensitive_sort(self):
+        pairs = buffer_parser.zip(buffer_parser.get_imports_region(self.txt4),
+                                  buffer_parser.get_params_region(self.txt4),
+                                  self.txt4)
+        for p in pairs:
+            print(p)
+
+        self.assertEqual(len(pairs), 3)
+        self.assertEqual(pairs[0], ['app/config', 'config'])
+        self.assertEqual(pairs[1], ['app/GeoSearch', 'GS'])
 
     def test_get_imports_txt(self):
         expected = """
