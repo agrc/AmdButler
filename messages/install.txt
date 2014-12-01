@@ -1,0 +1,8 @@
+Thank you for installing AMD Butler!
+
+Here are the three commands for you to try out:
+AMD Butler: Sort AMD Imports
+AMD Butler: Add AMD Import
+AMD Butler: Remove AMD Import
+
+Go here for more info or to report bugs: https://github.com/agrc/AmdButler
