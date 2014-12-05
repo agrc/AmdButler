@@ -12,7 +12,6 @@ class ParseError(Exception):
 
 
 def _get_span(txt, param):
-    print(txt)
     m = reg.search(txt)
     if m:
         return m.span(param)
