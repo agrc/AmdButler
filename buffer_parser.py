@@ -1,6 +1,6 @@
 import re
 
-reg = re.compile(r'^(define|require)\s*\(\s*\[(?P<imports>[\S\s]+?)\]\s*,'
+reg = re.compile(r'(define|require)\s*\(\s*\[(?P<imports>[\S\s]+?)\]\s*,'
                  r'\s*function\s*\((?P<params>[\S\s]+?)\)')
 
 
@@ -12,7 +12,8 @@ class ParseError(Exception):
 
 
 def _get_span(txt, param):
-    m = reg.match(txt)
+    print(txt)
+    m = reg.search(txt)
     if m:
         return m.span(param)
     else:

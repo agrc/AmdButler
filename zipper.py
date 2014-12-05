@@ -9,7 +9,6 @@ def zip(imports_txt, params_txt):
     l = list(zip_longest(imports, params))
 
     # sort by imports
-    print(l)
     l.sort(key=lambda x: x[0].lower())
 
     # move imports with no parameter to bottom of the list
