@@ -1,7 +1,7 @@
 import os
 import re
+from data.js_keywords import *
 
-RESERVED_WORDS = ['string', 'window']
 skip = re.compile('{0}(nls|tests)($|{0})'.format('/'))
 
 
@@ -24,7 +24,7 @@ def crawl(path):
 
 
 def get_param_name(name, package):
-    if name in RESERVED_WORDS:
+    if name in JS_KEYWORDS:
         return package + name.title()
     elif name.find('-') != -1:
         words = name.split('-')
