@@ -193,3 +193,10 @@ class zipperTests(unittest.TestCase):
 
         self.assertEqual(
             zipper.generate_params_txt(self.pairs, '    '), expected)
+
+    def test_scrub_nones(self):
+        pairs = [['app/App', 'App'],
+                ['app/config', 'config'],
+                ['dijit/form/Button', None]]
+        result = zipper.scrub_nones(pairs)
+        self.assertEqual(result[2][1], '')

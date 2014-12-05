@@ -145,12 +145,8 @@ class AmdButlerRemove(_Enabled, sublime_plugin.TextCommand):
     def run(self, edit):
         self.pairs = _get_sorted_pairs(self.view)
 
-        # scrub for None values
-        for p in self.pairs:
-            if p[1] is None:
-                p[1] = ''
         self.view.window().show_quick_panel(
-            self.pairs, self.on_mod_selected)
+            zipper.scrub_nones(self.pairs), self.on_mod_selected)
 
     def on_mod_selected(self, i):
         if i != -1:

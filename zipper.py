@@ -67,3 +67,13 @@ def generate_params_txt(pairs, indent):
     txt += '\n'
 
     return txt
+
+
+def scrub_nones(pairs):
+    scrubbed = []
+    for p in pairs:
+        if p[1] is None:
+            scrubbed.append([p[0], ''])
+        else:
+            scrubbed.append(p)
+    return scrubbed
