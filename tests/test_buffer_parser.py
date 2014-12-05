@@ -8,27 +8,8 @@ class parserTests(unittest.TestCase):
     txt3 = open('tests/data/Module3.js', 'r').read()
     txt4 = open('tests/data/Module4.js', 'r').read()
     txtSlource = open('tests/data/SlourceModule.js', 'r').read()
-    maxDiff = None
-    pairs = [
-        ['dijit/_TemplatedMixin', '_TemplatedMixin'],
-        ['dijit/_WidgetBase', '_WidgetBase'],
-        ['dijit/_WidgetsInTemplateMixin', '_WidgetsInTemplateMixin'],
-        ['dojo/_base/array', 'array'],
-        ['dojo/_base/Color', 'Color'],
-        ['dojo/_base/declare', 'declare'],
-        ['dojo/_base/lang', 'lang'],
-        ['dojo/dom-class', 'domClass'],
-        ['dojo/dom-style', 'domStyle'],
-        ['dojo/has', 'has'],
-        ['dojo/keys', 'keys'],
-        ['dojo/on', 'on'],
-        ['dojo/query', 'query'],
-        ['dojo/text!app/templates/GeoSearch.html', 'template'],
-        ['dijit/form/ValidationTextBox', None],
-        ['dojo/domReady!', None]
-    ]
 
-    def test_get_imports_region(self):
+    def test_get_imports_span(self):
         expected_imp = """
     'dojo/_base/declare',
     'dijit/_WidgetBase',
@@ -47,34 +28,34 @@ class parserTests(unittest.TestCase):
 
     'dijit/form/ValidationTextBox'
 """
-        impReg = buffer_parser.get_imports_region(self.txt)
+        impReg = buffer_parser.get_imports_span(self.txt)
         self.assertEqual(self.txt[impReg[0]: impReg[1]], expected_imp)
 
-    def test_get_import_region_slource(self):
-        expected_imp = (
-            '"dojo/_base/declare", "dojo/_base/lang", '
-            '"dojo/_base/array", "dojo/_base/json", '
-            '"dojo/_base/Deferred", '
-            '"dojo/has", "../kernel", "../lang", '
-            '"../layerUtils", "../deferredUtils", "./Task", '
-            '"../geometry/Polygon", '
-            '"../renderers/SimpleRenderer", "../geometry/scaleUtils", '
-            '"./Geoprocessor", '
-            '"./PrintTemplate", "dojo/dom-construct", "dojox/gfx/_base", '
-            '"dojox/gfx/canvas", "dojox/json/query", "require", "require"')
+    def test_get_import_span_slource(self):
+        expected_imp = ('"dojo/_base/declare", "dojo/_base/lang", '
+                        '"dojo/_base/array", "dojo/_base/json", '
+                        '"dojo/_base/Deferred", '
+                        '"dojo/has", "../kernel", "../lang", '
+                        '"../layerUtils", "../deferredUtils", "./Task", '
+                        '"../geometry/Polygon", "../renderers/'
+                        'SimpleRenderer", "../geometry/scaleUtils", '
+                        '"./Geoprocessor", "./PrintTemplate", '
+                        '"dojo/dom-construct", "dojox/gfx/_base", '
+                        '"dojox/gfx/canvas", "dojox/json/query", '
+                        '"require", "require"')
 
-        impReg = buffer_parser.get_imports_region(self.txtSlource)
+        impReg = buffer_parser.get_imports_span(self.txtSlource)
         self.assertEqual(self.txtSlource[impReg[0]: impReg[1]], expected_imp)
 
-    def test_get_params_region_slource(self):
+    def test_get_params_span_slource(self):
         expected_param = (
             'x, h, n, s, y, z, J, t, u, A, B, C, D, E, F, G, H, v, w, I')
 
-        paramReg = buffer_parser.get_params_region(self.txtSlource)
+        paramReg = buffer_parser.get_params_span(self.txtSlource)
         self.assertEqual(self.txtSlource[paramReg[0]: paramReg[1]],
                          expected_param)
 
-    def test_get_params_region(self):
+    def test_get_params_span(self):
         expected_param = """
     declare,
     _WidgetBase,
@@ -91,10 +72,10 @@ class parserTests(unittest.TestCase):
     on,
     has
     """
-        paramReg = buffer_parser.get_params_region(self.txt)
+        paramReg = buffer_parser.get_params_span(self.txt)
         self.assertEqual(self.txt[paramReg[0]: paramReg[1]], expected_param)
 
-    def test_get_imports_region_require(self):
+    def test_get_imports_span_require(self):
         expected_imp = """
     'app/Router',
 
@@ -104,10 +85,10 @@ class parserTests(unittest.TestCase):
 
     'esri/geometry/Extent'
 """
-        impReg = buffer_parser.get_imports_region(self.txt2)
+        impReg = buffer_parser.get_imports_span(self.txt2)
         self.assertEqual(self.txt2[impReg[0]: impReg[1]], expected_imp)
 
-    def test_get_params_region_require(self):
+    def test_get_params_span_require(self):
         expected_param = """
     Router,
 
@@ -117,92 +98,9 @@ class parserTests(unittest.TestCase):
 
     Extent
     """
-        paramReg = buffer_parser.get_params_region(self.txt2)
+        paramReg = buffer_parser.get_params_span(self.txt2)
         self.assertEqual(self.txt2[paramReg[0]: paramReg[1]], expected_param)
-
-    def test_zip(self):
-        pairs = buffer_parser.zip((8, 389), (403, 599), self.txt)
-
-        self.assertEqual(len(pairs), 15)
-        self.assertEqual(pairs[0], ['dijit/_TemplatedMixin',
-                                    '_TemplatedMixin'])
-        self.assertEqual(pairs[-1], ['dijit/form/ValidationTextBox', None])
-
-    def test_zip_another(self):
-        pairs = buffer_parser.zip((8, 511), (525, 783), self.txt3)
-        for p in pairs:
-            print(p)
-
-        self.assertEqual(len(pairs), 19)
-        self.assertEqual(pairs[-2], ['agrc/widgets/locate/FindAddress', None])
-        self.assertEqual(pairs[-1], ['dojo/_base/sniff', None])
-
-    def test_zip_slource(self):
-        pairs = buffer_parser.zip((8, 412), (424, 482), self.txtSlource)
-        for p in pairs:
-            print(p)
-
-        self.assertEqual(len(pairs), 22)
-        self.assertEqual(pairs[0], ['../deferredUtils', 'A'])
-        self.assertEqual(pairs[-1], ['require', None])
-
-    def test_zip_caseinsensitive_sort(self):
-        pairs = buffer_parser.zip(buffer_parser.get_imports_region(self.txt4),
-                                  buffer_parser.get_params_region(self.txt4),
-                                  self.txt4)
-        for p in pairs:
-            print(p)
-
-        self.assertEqual(len(pairs), 3)
-        self.assertEqual(pairs[0], ['app/config', 'config'])
-        self.assertEqual(pairs[1], ['app/GeoSearch', 'GS'])
-
-    def test_get_imports_txt(self):
-        expected = """
-    'dijit/_TemplatedMixin',
-    'dijit/_WidgetBase',
-    'dijit/_WidgetsInTemplateMixin',
-
-    'dojo/_base/array',
-    'dojo/_base/Color',
-    'dojo/_base/declare',
-    'dojo/_base/lang',
-    'dojo/dom-class',
-    'dojo/dom-style',
-    'dojo/has',
-    'dojo/keys',
-    'dojo/on',
-    'dojo/query',
-    'dojo/text!app/templates/GeoSearch.html',
-
-    'dijit/form/ValidationTextBox',
-    'dojo/domReady!'
-"""
-        self.assertEqual(
-            buffer_parser.get_imports_txt(self.pairs, '    '), expected)
-
-    def test_get_params_txt(self):
-        expected = """
-    _TemplatedMixin,
-    _WidgetBase,
-    _WidgetsInTemplateMixin,
-
-    array,
-    Color,
-    declare,
-    lang,
-    domClass,
-    domStyle,
-    has,
-    keys,
-    on,
-    query,
-    template
-"""
-
-        self.assertEqual(
-            buffer_parser.get_params_txt(self.pairs, '    '), expected)
 
     def test_raise_error(self):
         with self.assertRaises(buffer_parser.ParseError):
-            buffer_parser.get_region('blah', 'imports')
+            buffer_parser._get_span('blah', 'imports')

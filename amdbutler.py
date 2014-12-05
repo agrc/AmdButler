@@ -3,38 +3,38 @@ import sublime_plugin
 import os
 from . import buffer_parser
 from . import crawler
+from . import zipper
 
 PATH_SETTING_NAME = 'amd_butler_packages_base_path'
 SETTINGS_FILE_NAME = 'AmdButler.sublime-settings'
 
 
-def _get_sorted_pairs(view):
-    all_txt = view.substr(sublime.Region(0, view.size()))
+def _all_text(view):
+    return view.substr(sublime.Region(0, view.size()))
 
+
+def _get_sorted_pairs(view):
     try:
-        return buffer_parser.zip(*_get_regions(all_txt), txt=all_txt)
+        imports_span = buffer_parser.get_imports_span(_all_text(view))
+        params_span = buffer_parser.get_params_span(_all_text(view))
+        return zipper.zip(view.substr(sublime.Region(*imports_span)),
+                          view.substr(sublime.Region(*params_span)))
     except buffer_parser.ParseError as er:
         sublime.error_message(er.message)
 
 
-def _get_regions(all_txt):
-    imports = buffer_parser.get_imports_region(all_txt)
-    params = buffer_parser.get_params_region(all_txt)
-
-    return (imports, params)
-
-
 def _update_with_pairs(view, edit, pairs):
-    imports, params = _get_regions(view.substr(sublime.Region(0, view.size())))
+    imports_span = buffer_parser.get_imports_span(_all_text(view))
+    params_span = buffer_parser.get_params_span(_all_text(view))
 
     # replace params - do these first since they won't affect the
     # imports region
-    params_txt = buffer_parser.get_params_txt(pairs, '\t')
-    view.replace(edit, sublime.Region(*params), params_txt)
+    params_txt = zipper.generate_params_txt(pairs, '\t')
+    view.replace(edit, sublime.Region(*params_span), params_txt)
 
     # replace imports
-    import_txt = buffer_parser.get_imports_txt(pairs, '\t')
-    view.replace(edit, sublime.Region(*imports), import_txt)
+    import_txt = zipper.generate_imports_txt(pairs, '\t')
+    view.replace(edit, sublime.Region(*imports_span), import_txt)
 
 
 class _Enabled(object):
@@ -166,15 +166,15 @@ class AmdButlerInternalUpdate(_Enabled, sublime_plugin.TextCommand):
 
 class AmdButlerInternalAdd(_Enabled, sublime_plugin.TextCommand):
     def run(self, edit, pair=''):
-        all_txt = self.view.substr(sublime.Region(0, self.view.size()))
-
         # add param first
         try:
-            paramsPnt = buffer_parser.get_params_region(all_txt)[0]
-            self.view.insert(edit, paramsPnt, pair[1] + ',')
+            params_point = buffer_parser.get_params_span(
+                _all_text(self.view))[0]
+            self.view.insert(edit, params_point, pair[1] + ',')
 
-            importsPnt = buffer_parser.get_imports_region(all_txt)[0]
-            self.view.insert(edit, importsPnt, '\'{}\','.format(pair[0]))
+            imports_point = buffer_parser.get_imports_span(
+                _all_text(self.view))[0]
+            self.view.insert(edit, imports_point, '\'{}\','.format(pair[0]))
         except buffer_parser.ParseError as er:
             sublime.error_message(er.message)
 
