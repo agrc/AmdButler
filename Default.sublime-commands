@@ -8,5 +8,8 @@
     },{
         "caption": "AMD Butler: Remove AMD Import",
         "command": "amd_butler_remove"
+    },{
+        "caption": "AMD Butler: Refresh Available Imports",
+        "command": "amd_butler_refresh"
     }
 ]

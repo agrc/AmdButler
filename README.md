@@ -22,6 +22,9 @@ Displays a quick list of all of your current imports. Selecting an import from t
 
 ![quickcast-26-11-2014-12-35-07](https://cloud.githubusercontent.com/assets/1326248/5207584/d2cc22b6-7568-11e4-8923-bfc43e4696e9.gif)
 
+#### AMD Butler: Refresh Available Imports
+Refreshes the cache of available imports for the current view. This can be helpful after creating a new file that you want to import into the current view.
+
 ## Installation
 
 #### Package Control
