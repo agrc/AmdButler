@@ -1,5 +1,5 @@
-Changelog for in 1.1.0
-================
+Changelog for 1.1.0
+===================
 
 - Fixed a bug that was causing a parsing error on files with comments before the define/require function call (Thanks, @DavidSpriggs).
 - Fixed a bug that was causing hanging commas after using the "Remove AMD Import" command
