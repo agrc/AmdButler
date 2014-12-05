@@ -34,6 +34,7 @@ JS_KEYWORDS = [
     'public',
     'return',
     'static',
+    'string',
     'super',
     'switch',
     'this',
@@ -44,6 +45,7 @@ JS_KEYWORDS = [
     'var',
     'void',
     'while',
+    'window',
     'with',
     'yield'
 ]
