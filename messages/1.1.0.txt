@@ -1,0 +1,10 @@
+Changelog for in 1.1.0
+================
+
+- Fixed a bug that was causing a parsing error on files with comments before the define/require function call (Thanks, @DavidSpriggs).
+- Fixed a bug that was causing hanging commas after using the "Remove AMD Import" command
+- Added a new "Refresh Available Imports" command that refreshes the cash of available modules that show up when using the "Add AMD Import" command.
+- Added a better list of JavaScript keywords to use when generating module import parameters.
+- General refactoring and clean up
+
+Report any new issues here: https://github.com/agrc/AmdButler/issues
