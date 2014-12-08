@@ -1,0 +1,9 @@
+Changelog for 1.1.2
+===================
+
+- Better module importing which hopefully resolves some issues on windows.
+- Fixed the settings name in the default package settings file.
+
+Thanks for the reported bugs, Mashashi!
+
+Report any new issues here: https://github.com/agrc/AmdButler/issues
