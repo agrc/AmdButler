@@ -1,5 +1,5 @@
 import unittest
-import crawler
+from AmdButler import crawler
 
 path = r'tests/data/crawlTest'
 

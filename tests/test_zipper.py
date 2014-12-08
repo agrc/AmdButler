@@ -1,5 +1,5 @@
 import unittest
-import zipper
+from AmdButler import zipper
 
 
 class zipperTests(unittest.TestCase):

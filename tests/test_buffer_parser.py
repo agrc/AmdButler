@@ -1,5 +1,5 @@
 import unittest
-import buffer_parser
+from AmdButler import buffer_parser
 
 
 class BufferParserTests(unittest.TestCase):
