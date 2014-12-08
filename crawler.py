@@ -1,6 +1,6 @@
 import os
 import re
-from data.js_keywords import *
+from .data.js_keywords import *
 
 skip = re.compile('{0}(nls|tests)($|{0})'.format('/'))
 
