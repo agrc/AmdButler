@@ -47,9 +47,23 @@ def generate_imports_txt(pairs, indent):
     return txt
 
 
-def generate_params_txt(pairs, indent):
+def generate_params_txt(pairs, indent, oneLine):
     package = None
-    txt = ''
+
+    # normal settings:
+    initialTxt = ''
+    endLineTxt = ',\n'
+    afterItemTxt = ','
+    everyIterTxt = '\n    '
+
+    # config setting of params on one line:
+    if oneLine == True:
+        initialTxt = '\n    '
+        endLineTxt = ',\n    '
+        afterItemTxt = ', '
+        everyIterTxt = ''
+
+    txt = initialTxt
 
     for p in pairs:
         new_package = p[0].split('/')[0]
@@ -57,12 +71,12 @@ def generate_params_txt(pairs, indent):
             if package is None:
                 package = new_package
             elif package != new_package:
-                txt += ',\n'
+                txt += endLineTxt
                 package = new_package
             else:
-                txt += ','
+                txt += afterItemTxt
 
-            txt += '\n    ' + p[1]
+            txt += everyIterTxt + p[1]
 
     txt += '\n'
 
