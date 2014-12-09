@@ -1,3 +1,4 @@
 {
-    "amd_butler_packages_base_path": ""
+    "amd_butler_packages_base_path": "",
+    "amd_butler_params_one_line": false
 }
