@@ -54,12 +54,12 @@ def generate_params_txt(pairs, indent, oneLine):
     initialTxt = ''
     endLineTxt = ',\n'
     afterItemTxt = ','
-    everyIterTxt = '\n    '
+    everyIterTxt = '\n' + indent
 
     # config setting of params on one line:
-    if oneLine == True:
-        initialTxt = '\n    '
-        endLineTxt = ',\n    '
+    if oneLine is True:
+        initialTxt = '\n' + indent
+        endLineTxt = ',\n' + indent
         afterItemTxt = ', '
         everyIterTxt = ''
 
