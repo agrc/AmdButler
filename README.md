@@ -1,5 +1,4 @@
-[![Build Status](https://travis-ci.org/agrc/AmdButler.svg)](https://travis-ci.org/agrc/AmdButler)
-AMD Butler
+AMD Butler [![Build Status](https://travis-ci.org/agrc/AmdButler.svg)](https://travis-ci.org/agrc/AmdButler)
 ==========
 Serving Up AMD Module Imports
 
@@ -39,3 +38,8 @@ Clone the [source code](https://github.com/agrc/AmdButler) for this plugin to yo
 The name of the folder containing your AMD packages. This folder is crawled and all files are made available as imports for the "Add AMD Import" command.
 
 This settings can be set either at the package level (Preferences -> Package Settings -> AmdButler) or in the project file settings. No manual editing of settings files is needed. The user is prompted for the value if it's not present in either the project or package settings the first time that the "Add AMD Import" command is run.
+
+## Contributing
+Please match existing code style. 
+
+To execute tests run: [`nosetests`](https://nose.readthedocs.org/en/latest/) from the root of the project.
