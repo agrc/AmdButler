@@ -28,12 +28,19 @@ def _update_with_pairs(view, edit, pairs):
     imports_span = buffer_parser.get_imports_span(_all_text(view))
     params_span = buffer_parser.get_params_span(_all_text(view))
 
-    settings = sublime.load_settings(SETTINGS_FILE_NAME)
-    paramsOneLineSetting = settings.get(PARAMS_ONE_LINE_SETTING_NAME)
+    project = _get_project_data()
+    if (not project is None and
+            not project.get('settings', False) is False and
+            not project['settings'].get(PARAMS_ONE_LINE_SETTING_NAME, False)
+            is False):
+        oneLine = project['settings'][PARAMS_ONE_LINE_SETTING_NAME]
+    else:
+        settings = sublime.load_settings(SETTINGS_FILE_NAME)
+        oneLine = settings.get(PARAMS_ONE_LINE_SETTING_NAME)
 
     # replace params - do these first since they won't affect the
     # imports region
-    params_txt = zipper.generate_params_txt(pairs, '\t', paramsOneLineSetting)
+    params_txt = zipper.generate_params_txt(pairs, '\t', oneLine)
     view.replace(edit, sublime.Region(*params_span), params_txt)
 
     # replace imports
