@@ -13,6 +13,7 @@ Sorts the existing AMD imports for the current file alphabetically. Packages are
 
 #### AMD Butler: Add AMD Import
 Searches your packages for possible imports and displays them in the quick panel. When an import is selected it is added to the imports for the current file. The imports for the current file are then sorted.
+NOTE: The file that you execute this command from must be a decendant of the [packages folder path](#amd_butler_packages_base_path).
 
 ![quickcast-26-11-2014-12-33-46](https://cloud.githubusercontent.com/assets/1326248/5207582/cc7d5858-7568-11e4-8fce-c6e8b91946c9.gif)
 
