@@ -6,3 +6,4 @@ Steps to pushing out a new version
 4. Update version number in `README.md`
 5. Commit and tag (e.g. v1.2.0)
 6. Push
+7. Copy change log text and paste into release on GitHub.com
