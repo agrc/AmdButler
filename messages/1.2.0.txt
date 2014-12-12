@@ -1,0 +1,6 @@
+Changelog for 1.2.0
+===================
+
+- Added a new setting for optionally grouping parameters on one line (amd_butler_params_one_line). Thanks gavreh!
+
+Report any new issues here: https://github.com/agrc/AmdButler/issues
