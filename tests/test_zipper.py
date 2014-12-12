@@ -17,7 +17,6 @@ class zipperTests(unittest.TestCase):
         ['dojo/has', 'has'],
         ['dojo/keys', 'keys'],
         ['dojo/on', 'on'],
-        ['dojo/query', 'query'],
         ['dojo/text!app/templates/GeoSearch.html', 'template'],
         ['dijit/form/ValidationTextBox', None],
         ['dojo/domReady!', None]
@@ -163,7 +162,6 @@ class zipperTests(unittest.TestCase):
     'dojo/has',
     'dojo/keys',
     'dojo/on',
-    'dojo/query',
     'dojo/text!app/templates/GeoSearch.html',
 
     'dijit/form/ValidationTextBox',
@@ -187,12 +185,20 @@ class zipperTests(unittest.TestCase):
     has,
     keys,
     on,
-    query,
     template
 """
 
         self.assertEqual(
-            zipper.generate_params_txt(self.pairs, '    '), expected)
+            zipper.generate_params_txt(self.pairs, '    ', False), expected)
+
+    def test_generate_params_txt_oneline(self):
+        expected = """
+    _TemplatedMixin, _WidgetBase, _WidgetsInTemplateMixin,
+    array, Color, declare, lang, domClass, domStyle, has, keys, on, template
+"""
+
+        self.assertEqual(
+            zipper.generate_params_txt(self.pairs, '    ', True), expected)
 
     def test_scrub_nones(self):
         pairs = [['app/App', 'App'],
