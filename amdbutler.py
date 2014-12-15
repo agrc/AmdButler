@@ -62,6 +62,7 @@ def _set_mods(view):
             project['settings'].update({PATH_SETTING_NAME: txt})
             _save_project_data(project)
         _get_available_imports(view)
+        view.run_command('amd_butler_add')
 
     # create settings project prop if needed
     if project is not None and project.get('settings', False) is False:
@@ -71,6 +72,7 @@ def _set_mods(view):
     if project is not None and project['settings'].get(
             PATH_SETTING_NAME, False) is not False:
         _get_available_imports(view)
+        view.run_command('amd_butler_add')
     else:
         sublime.active_window().show_input_panel(
             'name of folder containing AMD packages (e.g. "src")',
@@ -137,7 +139,6 @@ class AmdButlerAdd(_Enabled, sublime_plugin.TextCommand):
     def run(self, edit):
         if not hasattr(self.view, 'mods'):
             _set_mods(self.view)
-            self.view.run_command('amd_butler_add')
         else:
             self.view.window().show_quick_panel(
                 self.view.mods, self.on_mod_selected)
