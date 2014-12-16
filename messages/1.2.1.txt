@@ -1,0 +1,9 @@
+Changelog for 1.2.1
+===================
+
+- Better validation and error messages for crawl folder including handling unsaved files.
+- Fixed other minor bugs.
+
+Thanks for the bug reports @Mashashi!
+
+Report any new issues here: https://github.com/agrc/AmdButler/issues

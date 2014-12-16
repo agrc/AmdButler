@@ -1,4 +1,4 @@
-AMD Butler v1.2.0 [![Build Status](https://travis-ci.org/agrc/AmdButler.svg)](https://travis-ci.org/agrc/AmdButler)
+AMD Butler v1.2.1 [![Build Status](https://travis-ci.org/agrc/AmdButler.svg)](https://travis-ci.org/agrc/AmdButler)
 ==========
 Serving Up AMD Module Imports
 
