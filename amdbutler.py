@@ -88,17 +88,13 @@ def _get_available_imports(view):
             PATH_SETTING_NAME)
         path = _validate_folder(view, folder_name)
         if path is None:
-            settings.erase(PATH_SETTING_NAME)
-            sublime.save_settings(SETTINGS_FILE_NAME)
             return
     else:
         settings = project['settings']
         folder_name = settings[PATH_SETTING_NAME]
         path = _validate_folder(view, folder_name)
         if path is None:
-            del settings[PATH_SETTING_NAME]
-            _save_project_data(project)
-
+            return
     sublime.status_message(
         'AMD Butler: Processing modules in {} ...'.format(path))
     view.mods = crawler.crawl(path)
@@ -108,12 +104,16 @@ def _get_available_imports(view):
 
 
 def _validate_folder(view, folder_name):
+    if view.file_name() is None:
+        sublime.error_message('File must be saved in order to '
+                              'search for available modules!')
     path = os.path.join(view.file_name().split(folder_name)[0],
                         folder_name)
     if os.path.exists(path):
         return path
     else:
-        sublime.error_message('Could not find: {}!'.format(path))
+        sublime.error_message('{} not found in the path of the current file!'
+                              .format(folder_name))
         return None
 
 
