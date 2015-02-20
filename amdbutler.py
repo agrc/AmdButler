@@ -49,35 +49,45 @@ def _update_with_pairs(view, edit, pairs):
 
 
 def _set_mods(view):
-    project = _get_project_data()
+    settings = sublime.load_settings(SETTINGS_FILE_NAME)
 
     def on_folder_defined(txt):
         project = _get_project_data()
         if project is None:
             # no project open use default setting
-            settings = sublime.load_settings(SETTINGS_FILE_NAME)
             settings.set(PATH_SETTING_NAME, txt)
             sublime.save_settings(SETTINGS_FILE_NAME)
         else:
             project['settings'].update({PATH_SETTING_NAME: txt})
             _save_project_data(project)
-        _get_available_imports(view)
-        view.run_command('amd_butler_add')
+        get_imports()
 
-    # create settings project prop if needed
-    if project is not None and project.get('settings', False) is False:
-        project.update({'settings': {PATH_SETTING_NAME: False}})
-        _save_project_data(project)
-
-    if project is not None and project['settings'].get(
-            PATH_SETTING_NAME, False) is not False:
-        _get_available_imports(view)
-        view.run_command('amd_butler_add')
-    else:
+    def get_folder():
         sublime.active_window().show_input_panel(
             'name of folder containing AMD packages (e.g. "src")',
             '', on_folder_defined,
             lambda: None, lambda: None)
+
+    def get_imports():
+        _get_available_imports(view)
+        view.run_command('amd_butler_add')
+
+    project = _get_project_data()
+    if project is not None:
+        # create settings project prop if needed
+        if (project.get('settings', False) is False or
+                project['settings'].get(PATH_SETTING_NAME, False) is False):
+            project.update({'settings': {PATH_SETTING_NAME: False}})
+            _save_project_data(project)
+            get_folder()
+        else:
+            get_imports()
+    else:
+        # no project
+        if settings.get(PATH_SETTING_NAME, False) is False:
+            get_folder()
+        else:
+            get_imports()
 
 
 def _get_available_imports(view):

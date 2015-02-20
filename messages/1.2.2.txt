@@ -1,0 +1,7 @@
+Changlog for 1.2.2
+==================
+
+- Existing imports are now excluded from the add import quick list to prevent duplicate imports.
+- Added tests for sublime code.
+
+Report any new issues here: https://github.com/agrc/AmdButler/issues

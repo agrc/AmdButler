@@ -1,8 +1,8 @@
 Linux (OSX coming soon) | Windows
 ------------|------------
-[![Build Status](http://img.shields.io/travis/agrc/AmdButler.svg)](https://travis-ci.org/agrc/AmdButler) | [![Build status](https://img.shields.io/appveyor/ci/stdavis/AmdButler.svg)](https://ci.appveyor.com/project/stdavis/AmdButler/branch/master)
+[![Build Status](http://img.shields.io/travis/agrc/AmdButler/master.svg)](https://travis-ci.org/agrc/AmdButler) | [![Build status](https://img.shields.io/appveyor/ci/stdavis/AmdButler/master.svg)](https://ci.appveyor.com/project/stdavis/AmdButler/branch/master)
 
-AMD Butler v1.2.1
+AMD Butler v1.2.2
 ==========
 Serving Up AMD Module Imports
 

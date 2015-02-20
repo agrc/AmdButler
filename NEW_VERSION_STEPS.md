@@ -1,6 +1,6 @@
 Steps to pushing out a new version
 ==================================
-1. Make sure that all tests are passing (`nosetests`)
+1. Make sure that all tests are passing
 2. Create new file in `/messages` and populate with release notes
 3. Add entry to `messages.json`
 4. Update version number in `README.md`
