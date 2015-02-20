@@ -1,14 +1,19 @@
 import unittest
+import os
 from AmdButler import buffer_parser
+
+base_path = os.path.dirname(__file__)
 
 
 class BufferParserTests(unittest.TestCase):
-    txt = open('tests/data/Module.js', 'r').read()
-    txt2 = open('tests/data/Module2.js', 'r').read()
-    txt3 = open('tests/data/Module3.js', 'r').read()
-    txt4 = open('tests/data/Module4.js', 'r').read()
-    txt_slource = open('tests/data/SlourceModule.js', 'r').read()
-    txt_jshint = open('tests/data/ModuleJSHint.js', 'r').read()
+    txt = open(os.path.join(base_path, 'data/Module.js'), 'r').read()
+    txt2 = open(os.path.join(base_path, 'data/Module2.js'), 'r').read()
+    txt3 = open(os.path.join(base_path, 'data/Module3.js'), 'r').read()
+    txt4 = open(os.path.join(base_path, 'data/Module4.js'), 'r').read()
+    txt_slource = open(os.path.join(
+        base_path, 'data/SlourceModule.js'), 'r').read()
+    txt_jshint = open(os.path.join(
+        base_path, 'data/ModuleJSHint.js'), 'r').read()
 
     def test_get_imports_span(self):
         expected = """

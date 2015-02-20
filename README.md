@@ -1,4 +1,8 @@
-AMD Butler v1.2.1 [![Build Status](https://travis-ci.org/agrc/AmdButler.svg)](https://travis-ci.org/agrc/AmdButler)
+Linux (OSX coming soon) | Windows
+------------|------------
+[![Build Status](http://img.shields.io/travis/agrc/AmdButler.svg)](https://travis-ci.org/agrc/AmdButler) | [![Build status](https://img.shields.io/appveyor/ci/agrc/AmdButler.svg)](https://ci.appveyor.com/project/agrc/AmdButler/branch/master)
+
+AMD Butler v1.2.1
 ==========
 Serving Up AMD Module Imports
 

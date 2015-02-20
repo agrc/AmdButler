@@ -1,7 +1,8 @@
 import unittest
 from AmdButler import crawler
+import os
 
-path = r'tests/data/crawlTest'
+path = os.path.join(os.path.dirname(__file__), r'data/crawlTest')
 
 
 class crawlerTests(unittest.TestCase):
