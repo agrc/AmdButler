@@ -16,4 +16,4 @@ class TestAdd(base_classes.InOut):
     def test_add_exclude_dupicates(self):
         view = self.loadInput('Add_Dups.js')
         amdbutler._set_mods(view)
-        self.assertEqual(len(view.mods), 4)
+        self.assertNotIn(view.mods, ['expected/Add', 'Add'])
