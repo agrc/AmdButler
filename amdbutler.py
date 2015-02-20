@@ -29,7 +29,7 @@ def _update_with_pairs(view, edit, pairs):
     params_span = buffer_parser.get_params_span(_all_text(view))
 
     project = _get_project_data()
-    if (not project is None and
+    if (project is not None and
             not project.get('settings', False) is False and
             not project['settings'].get(PARAMS_ONE_LINE_SETTING_NAME, False)
             is False):
@@ -97,7 +97,7 @@ def _get_available_imports(view):
             return
     sublime.status_message(
         'AMD Butler: Processing modules in {} ...'.format(path))
-    view.mods = crawler.crawl(path)
+    view.mods = crawler.crawl(path, _get_sorted_pairs(view))
     sublime.status_message(
         'AMD Butler: Processing complete. {} total modules processed.'.format(
             len(view.mods)))
@@ -145,7 +145,7 @@ class AmdButlerAdd(_Enabled, sublime_plugin.TextCommand):
 
     def on_mod_selected(self, i):
         if i != -1:
-            pair = self.view.mods[i]
+            pair = self.view.mods.pop(i)
             self.view.run_command('amd_butler_internal_add',
                                   {'pair': pair})
 
@@ -159,7 +159,7 @@ class AmdButlerRemove(_Enabled, sublime_plugin.TextCommand):
 
     def on_mod_selected(self, i):
         if i != -1:
-            self.pairs.pop(i)
+            self.view.mods.append(self.pairs.pop(i))
             self.view.run_command('amd_butler_internal_update',
                                   {'pairs': self.pairs})
 

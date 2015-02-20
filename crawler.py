@@ -5,7 +5,7 @@ from .data.js_keywords import *
 skip = re.compile('{0}(nls|tests)($|{0})'.format('/'))
 
 
-def crawl(path):
+def crawl(path, excludes):
     mods = []
     for package in os.listdir(path):
         for root, dirs, files in os.walk(os.path.join(path, package)):
@@ -18,7 +18,8 @@ def crawl(path):
                     # replace '\\' for '/' in windows
                     base = base.replace(os.sep, '/')
                     mod = r'{}/{}'.format(base, name)
-                    if skip.search(mod) is None:
+                    if (skip.search(mod) is None and
+                            [mod, paramName] not in excludes):
                         mods.append([mod, paramName])
     return mods
 

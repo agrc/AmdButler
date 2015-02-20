@@ -22,6 +22,10 @@
 	"settings":
 	{
 		"amd_butler_packages_base_path": "crawlTest",
-		"amd_butler_params_one_line": false
+		"amd_butler_params_one_line": false,
+		"rulers":
+		[
+			80
+		]
 	}
 }
