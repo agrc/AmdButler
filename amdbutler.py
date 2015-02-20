@@ -159,7 +159,11 @@ class AmdButlerRemove(_Enabled, sublime_plugin.TextCommand):
 
     def on_mod_selected(self, i):
         if i != -1:
-            self.view.mods.append(self.pairs.pop(i))
+            pair = self.pairs.pop(i)
+            try:
+                self.view.mods.append(pair)
+            except AttributeError:
+                pass
             self.view.run_command('amd_butler_internal_update',
                                   {'pairs': self.pairs})
 
