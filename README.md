@@ -1,6 +1,6 @@
 Linux (OSX coming soon) | Windows
 ------------|------------
-[![Build Status](http://img.shields.io/travis/agrc/AmdButler.svg)](https://travis-ci.org/agrc/AmdButler) | [![Build status](https://img.shields.io/appveyor/ci/agrc/AmdButler.svg)](https://ci.appveyor.com/project/agrc/AmdButler/branch/master)
+[![Build Status](http://img.shields.io/travis/agrc/AmdButler.svg)](https://travis-ci.org/agrc/AmdButler) | [![Build status](https://img.shields.io/appveyor/ci/stdavis/AmdButler.svg)](https://ci.appveyor.com/project/stdavis/AmdButler/branch/master)
 
 AMD Butler v1.2.1
 ==========
@@ -17,7 +17,9 @@ Sorts the existing AMD imports for the current file alphabetically. Packages are
 
 #### AMD Butler: Add AMD Import
 Searches your packages for possible imports and displays them in the quick panel. When an import is selected it is added to the imports for the current file. The imports for the current file are then sorted.
-NOTE: The file that you execute this command from must be a decendant of the [packages folder path](#amd_butler_packages_base_path).
+NOTE: The file that you execute this command from must be a descendant of the [packages folder path](#amd_butler_packages_base_path).
+
+To prevent duplicate, imports that are already in the current file are excluded from the list.
 
 ![quickcast-26-11-2014-12-33-46](https://cloud.githubusercontent.com/assets/1326248/5207582/cc7d5858-7568-11e4-8fce-c6e8b91946c9.gif)
 
@@ -38,7 +40,6 @@ The preferred method for installation is via [package control](https://sublime.w
 Clone the [source code](https://github.com/agrc/AmdButler) for this plugin to your Sublime Packages folder.
 
 ## Settings
-
 These settings can be set either at the package level (Preferences -> Package Settings -> AmdButler) or at the project level within the [`.sublime-project` file](http://www.sublimetext.com/docs/3/projects.html). 
 
 #### `amd_butler_packages_base_path`
@@ -52,4 +53,4 @@ If `true`, the params will be rewritten to one line per section (instead of the 
 ## Contributing
 Please match existing code style. 
 
-To execute tests run: [`nosetests`](https://nose.readthedocs.org/en/latest/) from the root of the project.
+To execute tests use the [UnitTesting](https://github.com/randy3k/UnitTesting) sublime package.
