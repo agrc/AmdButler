@@ -13,7 +13,7 @@ A Sublime Text 3 plugin for managing AMD dependency import statements. It helps 
 #### AMD Butler: Sort AMD Imports
 Sorts the existing AMD imports for the current file alphabetically. Packages are separated by a blank line. The corresponding parameter names are also reordered.
 
-![quickcast-26-11-2014-12-21-42 1](https://cloud.githubusercontent.com/assets/1326248/5207476/de48852c-7567-11e4-99f8-da43bd1ee742.gif)
+![](docs/butler_sort.gif)
 
 #### AMD Butler: Add AMD Import
 Searches your packages for possible imports and displays them in the quick panel. When an import is selected it is added to the imports for the current file. The imports for the current file are then sorted.
@@ -21,12 +21,12 @@ NOTE: The file that you execute this command from must be a descendant of the [p
 
 To prevent duplicate, imports that are already in the current file are excluded from the list.
 
-![quickcast-26-11-2014-12-33-46](https://cloud.githubusercontent.com/assets/1326248/5207582/cc7d5858-7568-11e4-8fce-c6e8b91946c9.gif)
+![](docs/butler_add.gif)
 
 #### AMD Butler: Remove AMD Import
 Displays a quick list of all of your current imports. Selecting an import from the quick list removes it from your file. The imports are also automatically sorted.
 
-![quickcast-26-11-2014-12-35-07](https://cloud.githubusercontent.com/assets/1326248/5207584/d2cc22b6-7568-11e4-8923-bfc43e4696e9.gif)
+![](docs/butler_remove.gif)
 
 #### AMD Butler: Refresh Available Imports
 Refreshes the cache of available imports for the current view. This can be helpful after creating a new file that you want to import into the current view.
