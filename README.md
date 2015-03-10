@@ -33,21 +33,23 @@ Refreshes the cache of available imports for the current view. This can be helpf
 
 ## Installation
 
-#### Package Control
-The preferred method for installation is via [package control](https://sublime.wbond.net/). First [install package control](https://sublime.wbond.net/installation), then run "Package Control: Install Package" and search for "AMD Butler".
+#### Via Package Control
+The preferred method for installation is via [package control](https://sublime.wbond.net/). First [install package control](https://sublime.wbond.net/installation), then run the "Package Control: Install Package" command and search for "AMD Butler".
 
-#### Manual
+#### Manual Install
 Clone the [source code](https://github.com/agrc/AmdButler) for this plugin to your Sublime Packages folder.
 
 ## Settings
 These settings can be set either at the package level (Preferences -> Package Settings -> AmdButler) or at the project level within the [`.sublime-project` file](http://www.sublimetext.com/docs/3/projects.html). 
 
 #### `amd_butler_packages_base_path`
+Type: *String*  
 The name of the folder containing your AMD packages. This folder is crawled and all files are made available as imports for the "Add AMD Import" command.
 
-No manual editing of this setting is needed. The user is prompted for the value if it's not present in either the project or package settings the first time that the "Add AMD Import" or "Refresh Available Imports" commands are run.
+*Note:* No manual editing of this setting is needed. The user is prompted for the value if it's not present in either the project or package settings the first time that the "Add AMD Import" or "Refresh Available Imports" commands are run.
 
 #### `amd_butler_params_one_line`
+Type: *Boolean*  
 If `true`, the params will be rewritten to one line per section (instead of the default (`false`), one line per parameter).
 
 ## Contributing
