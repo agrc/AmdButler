@@ -21,8 +21,15 @@ class crawlerTests(unittest.TestCase):
         self.assertNotIn(exclude, result)
 
     def test_get_param_name(self):
-        result = crawler.get_param_name('dom-style', 'test')
+        result = crawler.get_param_name('test/dom-style')
         self.assertEqual(result, 'domStyle')
 
-        result = crawler.get_param_name('window', 'test')
+        result = crawler.get_param_name('test/window')
         self.assertEqual(result, 'testWindow')
+
+    def test_get_preferred_argument(self):
+        result = crawler.get_param_name('esri/basemaps')
+        self.assertEqual(result, 'esriBasemaps')
+
+        result = crawler.get_param_name('esri/styles/choropleth')
+        self.assertEqual(result, 'esriStylesChoropleth')
