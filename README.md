@@ -2,8 +2,8 @@ Linux (OSX coming soon) | Windows
 ------------|------------
 [![Build Status](http://img.shields.io/travis/agrc/AmdButler/master.svg)](https://travis-ci.org/agrc/AmdButler) | [![Build status](https://img.shields.io/appveyor/ci/stdavis/AmdButler/master.svg)](https://ci.appveyor.com/project/stdavis/AmdButler/branch/master)
 
-AMD Butler v1.2.2
-==========
+AMD Butler v1.3.0
+=================
 Serving Up AMD Module Imports
 
 A Sublime Text 3 plugin for managing AMD dependency import statements. It helps you quickly sort, add, and remove AMD import statements. With features such as auto sorting and auto module name discovery it allows you to focus more on your code rather than worrying your AMD imports.
@@ -20,6 +20,8 @@ Searches your packages for possible imports and displays them in the quick panel
 NOTE: The file that you execute this command from must be a descendant of the [packages folder path](#amd_butler_packages_base_path).
 
 To prevent duplicate, imports that are already in the current file are excluded from the list.
+
+Argument aliases are usually returned as the file name of the module (e.g. `dojo/_base/array` => `array`). However, if the file name is a [reserved word in JavaScript](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Lexical_grammar) the package name is prepended to the beginning of the file name (e.g. `dojo/string` => `dojoString`). [Preferred argument aliases](data/preferred_argument_aliases.py) are also taken into account if they do not follow the standard conventions.
 
 ![](docs/butler_add.gif)
 

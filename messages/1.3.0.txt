@@ -1,0 +1,7 @@
+Changelog for 1.3.0
+===================
+
+- Added support for preferred argument aliases and populated from esri's docs: https://developers.arcgis.com/javascript/jsapi/argument_aliases.html
+    - PR's for additional argument aliases are welcome. See data/preferred_argument_aliases.py
+
+Report any new issues here: https://github.com/agrc/AmdButler/issues
