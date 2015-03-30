@@ -1,6 +1,8 @@
-Linux (OSX coming soon) | Windows
+Linux | Windows
 ------------|------------
 [![Build Status](http://img.shields.io/travis/agrc/AmdButler/master.svg)](https://travis-ci.org/agrc/AmdButler) | [![Build status](https://img.shields.io/appveyor/ci/stdavis/AmdButler/master.svg)](https://ci.appveyor.com/project/stdavis/AmdButler/branch/master)
+
+OSX is supported for this project but [does not have build status badge yet](http://docs.travis-ci.com/user/multi-os/).
 
 AMD Butler v1.3.0
 =================
