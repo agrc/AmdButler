@@ -203,3 +203,11 @@ class AmdButlerInternalAdd(_Enabled, sublime_plugin.TextCommand):
 class AmdButlerRefresh(_Enabled, sublime_plugin.TextCommand):
     def run(self, edit):
         _set_mods(self.view)
+
+
+class AmdButlerPrune(_Enabled, sublime_plugin.TextCommand):
+    def run(self, edit):
+        pairs = _get_sorted_pairs(self.view)
+
+        new_pairs = buffer_parser.prune(pairs, _all_text(self.view))
+        _update_with_pairs(self.view, edit, new_pairs)

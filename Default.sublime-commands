@@ -11,5 +11,8 @@
     },{
         "caption": "AMD Butler: Refresh Available Imports",
         "command": "amd_butler_refresh"
+    },{
+        "caption": "AMD Butler: Prune Unused AMD Imports",
+        "command": "amd_butler_prune"
     }
 ]

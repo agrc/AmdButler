@@ -25,3 +25,14 @@ def get_imports_span(txt):
 
 def get_params_span(txt):
     return _get_span(txt, 'params')
+
+
+def prune(pairs, txt):
+    new_pairs = []
+    params_span = get_params_span(txt)
+    body_txt = txt[params_span[1]:]
+    for p in pairs:
+        if p[1] is None or p[1] in body_txt:
+            new_pairs.append(p)
+
+    return new_pairs
