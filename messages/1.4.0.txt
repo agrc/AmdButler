@@ -1,0 +1,6 @@
+Changelog for 1.4.0
+===================
+
+- New prune command for removing unused imports.
+
+Report any new issues here: https://github.com/agrc/AmdButler/issues

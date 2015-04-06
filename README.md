@@ -4,7 +4,7 @@ Linux | Windows
 
 OSX is supported for this project but [does not have build status badge yet](http://docs.travis-ci.com/user/multi-os/).
 
-AMD Butler v1.3.0
+AMD Butler v1.4.0
 =================
 Serving Up AMD Module Imports
 
@@ -12,12 +12,12 @@ A Sublime Text 3 plugin for managing AMD dependency import statements. It helps 
 
 ## Commands
 
-#### AMD Butler: Sort AMD Imports
+#### AMD Butler: Sort Imports
 Sorts the existing AMD imports for the current file alphabetically. Packages are separated by a blank line. The corresponding parameter names are also reordered.
 
 ![](docs/butler_sort.gif)
 
-#### AMD Butler: Add AMD Import
+#### AMD Butler: Add Import
 Searches your packages for possible imports and displays them in the quick panel. When an import is selected it is added to the imports for the current file. The imports for the current file are then sorted.
 NOTE: The file that you execute this command from must be a descendant of the [packages folder path](#amd_butler_packages_base_path).
 
@@ -27,13 +27,16 @@ Argument aliases are usually returned as the file name of the module (e.g. `dojo
 
 ![](docs/butler_add.gif)
 
-#### AMD Butler: Remove AMD Import
+#### AMD Butler: Remove Import
 Displays a quick list of all of your current imports. Selecting an import from the quick list removes it from your file. The imports are also automatically sorted.
 
 ![](docs/butler_remove.gif)
 
 #### AMD Butler: Refresh Available Imports
 Refreshes the cache of available imports for the current view. This can be helpful after creating a new file that you want to import into the current view.
+
+#### AMD Butler: Prune Unused Imports
+Removes any import who's parameter does not show up in the module body.
 
 ## Installation
 
