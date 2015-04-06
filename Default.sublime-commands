@@ -1,18 +1,18 @@
 [
     {
-        "caption": "AMD Butler: Sort AMD Imports",
+        "caption": "AMD Butler: Sort Imports",
         "command": "amd_butler_sort"
     },{
-        "caption": "AMD Butler: Add AMD Import",
+        "caption": "AMD Butler: Add Import",
         "command": "amd_butler_add"
     },{
-        "caption": "AMD Butler: Remove AMD Import",
+        "caption": "AMD Butler: Remove Import",
         "command": "amd_butler_remove"
     },{
         "caption": "AMD Butler: Refresh Available Imports",
         "command": "amd_butler_refresh"
     },{
-        "caption": "AMD Butler: Prune Unused AMD Imports",
+        "caption": "AMD Butler: Prune Unused Imports",
         "command": "amd_butler_prune"
     }
 ]
