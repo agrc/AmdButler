@@ -1,4 +1,4 @@
-# overrides for common preferred argument aliases that don't follow the 
+# overrides for common preferred argument aliases that don't follow the
 # normal conventions - PR's are welcome!
 ALIASES = {
     'esri/basemaps': 'esriBasemaps',
@@ -25,5 +25,7 @@ ALIASES = {
     'esri/tasks/query': 'Query',
     'esri/toolbars/draw': 'Draw',
     'esri/toolbars/edit': 'Edit',
-    'esri/toolbars/navigation': 'Navigation'
+    'esri/toolbars/navigation': 'Navigation',
+    'dojo/fx': 'coreFx',
+    'dojo/_base/fx': 'baseFx'
 }
