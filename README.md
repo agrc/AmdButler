@@ -1,3 +1,6 @@
+# This project is no longer being maintained
+This project has been ported to an [atom editor package](https://atom.io/packages/amdbutler). Please let us know if you are interested in taking ownership.
+
 Linux | Windows
 ------------|------------
 [![Build Status](http://img.shields.io/travis/agrc/AmdButler/master.svg)](https://travis-ci.org/agrc/AmdButler) | [![Build status](https://img.shields.io/appveyor/ci/stdavis/AmdButler/master.svg)](https://ci.appveyor.com/project/stdavis/AmdButler/branch/master)
